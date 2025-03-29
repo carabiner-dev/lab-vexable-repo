@@ -17,10 +17,10 @@ jobs:
         continue-on-error: true
         with:
           scan-args: |-
-            --output=/tmp/osv-results.json 
+            --output=osv-results.json 
             --format=json
             .
       - name: Print scan
         run: |
-            cat /tmp/osv-results.json
+            cat osv-results.json
     
