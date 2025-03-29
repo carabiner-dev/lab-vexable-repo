@@ -33,6 +33,7 @@ This is where VEX (Vulnerabilityu Exploitability EXchange) and
 [vexflow](https://github.com/carabiner-dev/vexflow) come to the rescue.
 
 <img src="https://avatars.githubusercontent.com/u/121361164?s=200&v=4" align="left">
+
 Setting up an [OpenVEX](http://github.com/openvex) flow for the project lets you suppress
 non exploitable vulnerabilities in the scanner output allowing vulnerability 
 policies to pass.
