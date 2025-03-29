@@ -1,6 +1,6 @@
 module github.com/carabiner-dev/lab-vexable-repo
 
-go 1.24.1
+go 1.23.7
 
 require (
 	github.com/go-jose/go-jose/v4 v4.0.2
