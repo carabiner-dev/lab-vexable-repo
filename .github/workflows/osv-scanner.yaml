@@ -23,6 +23,7 @@ jobs:
           scan-args: |-
             --output=/tmp/osv-results.json 
             --no-call-analysis
+            --call-analysis=false
             --format=json
             .
       - name: Print scan
