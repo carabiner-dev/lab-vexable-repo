@@ -11,7 +11,10 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      
+
+      - name: Setup AMPEL   
+        uses: carabiner-dev/actions/install/ampel@HEAD
+  
       - name: "Run scanner"
         uses: google/osv-scanner-action/osv-scanner-action@119c605e0e6e6c491e092da25b0c752d109b0b43 # v2.0.0
         continue-on-error: true
@@ -20,7 +23,12 @@ jobs:
             --output=osv-results.json 
             --format=json
             .
-      - name: Print scan
+      - name: Verify Branch Policy
         run: |
-            cat osv-results.json
-    
+            ampel verify \
+              --subject=sha256:34c392aa1a59b8713996177675c06aa43379694015194d84d7050caea21562e3 \
+              --policy policy/CRA-AI-2.a-XFORM.ampel.json \
+              -a osv-results.json 
+      # - name: Print scan
+      #   run: |
+      #     cat osv-results.json
