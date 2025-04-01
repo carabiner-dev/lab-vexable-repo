@@ -28,7 +28,7 @@ jobs:
             ampel verify \
               --subject=sha256:34c392aa1a59b8713996177675c06aa43379694015194d84d7050caea21562e3 \
               --policy policy/CRA-AI-2.a-XFORM.ampel.json \
-              --atestation osv-results.json \
+              --attestation osv-results.json \
               --format=markdown >> $GITHUB_STEP_SUMMARY
       # - name: Print scan
       #   run: |
