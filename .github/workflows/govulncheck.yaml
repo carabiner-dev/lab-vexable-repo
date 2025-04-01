@@ -14,6 +14,9 @@ jobs:
 
       - name: Setup bnd
         uses: carabiner-dev/actions/install/bnd@HEAD
+        
+      - name: Setup revex
+        uses: carabiner-dev/actions/install/revex@HEAD
   
       - name: "Run scanner"
         uses: google/osv-scanner-action/osv-scanner-action@119c605e0e6e6c491e092da25b0c752d109b0b43 # v2.0.0
