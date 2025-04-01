@@ -46,7 +46,7 @@ jobs:
             --type https://openvex.dev/ns \
             --subject=sha256:9d10014412bb8f127e0d8b41df590a8154a213035bfc7688d211bdaea9c56835 \
             > vulncheck.openvex.bundle.json
-          bnd push puerco/lab-vexable-repo vulncheck.openvex.bundle.json
+          bnd push puerco/vftest vulncheck.openvex.bundle.json
 
       # - name: Verify Branch Policy
       #   run: |
