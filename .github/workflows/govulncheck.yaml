@@ -3,10 +3,16 @@
 
 on:
   workflow_dispatch: {}
+permissions:
+  contents: read
+
 
 jobs:
   osv-scan:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -14,7 +20,7 @@ jobs:
 
       - name: Setup bnd
         uses: carabiner-dev/actions/install/bnd@HEAD
-        
+
       - name: Setup revex
         uses: carabiner-dev/actions/install/revex@HEAD
   
@@ -36,6 +42,12 @@ jobs:
                     --gvc-product-id=git+https://github.com/${{github.repository}}@main > vulncheck.openvex.json
       - run: |
           cat vulncheck.openvex.json
+          bnd statement vulncheck.openvex.json \
+            --type https://openvex.dev/ns \
+            --subject=sha256:9d10014412bb8f127e0d8b41df590a8154a213035bfc7688d211bdaea9c56835 \
+            > vulncheck.openvex.bundle.json
+          bnd push puerco/lab-vexable-repo vulncheck.openvex.bundle.json
+
       # - name: Verify Branch Policy
       #   run: |
       #       ampel verify \
