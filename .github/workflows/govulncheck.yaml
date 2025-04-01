@@ -42,7 +42,7 @@ jobs:
                     --gvc-product-id=git+https://github.com/${{github.repository}}@main > vulncheck.openvex.json
       - run: |
           cat vulncheck.openvex.json
-          bnd statement vulncheck.openvex.json \
+          bnd predicate vulncheck.openvex.json \
             --type https://openvex.dev/ns \
             --subject=sha256:9d10014412bb8f127e0d8b41df590a8154a213035bfc7688d211bdaea9c56835 \
             > vulncheck.openvex.bundle.json
