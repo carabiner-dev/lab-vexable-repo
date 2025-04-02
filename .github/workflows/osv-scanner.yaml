@@ -12,12 +12,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup bnd   
-        uses: carabiner-dev/actions/install/bnd@HEAD
+      - name: Setup vexflow
+        uses: carabiner-dev/actions/install/vexflow@HEAD
 
       - name: Setup AMPEL   
         uses: carabiner-dev/actions/install/ampel@HEAD
-        
+
       - name: "Run scanner"
         uses: google/osv-scanner-action/osv-scanner-action@119c605e0e6e6c491e092da25b0c752d109b0b43 # v2.0.0
         continue-on-error: true
@@ -26,17 +26,16 @@ jobs:
             --output=osv-results.json 
             --format=json
             .
-      - name: Generate Golvulncheck VEX
+      - name: Assemble release VEX
         run: |
-            go install golang.org/x/vuln/cmd/govulncheck@latest
-            govulncheck -format=openvex ./... | revex --filter-status=not_affected \
-              --gvc-fix-purls 
+          vexflow assemble --repo=puerco/lab-vexable-repo --triage-repo=puerco/vftest  > main.openvex.json
       - name: Verify Branch Policy
         run: |
             ampel verify \
-              --subject=sha256:34c392aa1a59b8713996177675c06aa43379694015194d84d7050caea21562e3 \
+              --subject=sha256:9d10014412bb8f127e0d8b41df590a8154a213035bfc7688d211bdaea9c56835 \
               --policy policy/CRA-AI-2.a-XFORM.ampel.json \
               --attestation osv-results.json \
+              --attestation main.openvex.json \
               --format=html >> $GITHUB_STEP_SUMMARY
       # - name: Print scan
       #   run: |
