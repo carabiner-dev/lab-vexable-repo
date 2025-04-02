@@ -12,11 +12,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup AMPEL   
-        uses: carabiner-dev/actions/install/ampel@HEAD
       - name: Setup bnd   
         uses: carabiner-dev/actions/install/bnd@HEAD
-  
+
+      - name: Setup AMPEL   
+        uses: carabiner-dev/actions/install/ampel@HEAD
+        
       - name: "Run scanner"
         uses: google/osv-scanner-action/osv-scanner-action@119c605e0e6e6c491e092da25b0c752d109b0b43 # v2.0.0
         continue-on-error: true
