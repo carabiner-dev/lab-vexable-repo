@@ -5,8 +5,12 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  osv-scan:
+  validate-policy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      attestations: read
+    
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -26,7 +30,9 @@ jobs:
             --output=osv-results.json 
             --format=json
             .
-      - name: Assemble release VEX
+      - name: Assemble Release VEX
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           vexflow assemble --repo=puerco/lab-vexable-repo --triage-repo=puerco/vftest  > main.openvex.json
       - name: Verify Branch Policy
